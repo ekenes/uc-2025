@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <title>Cotton Production</title>
+
+  <!-- Load Calcite components from CDN -->
+  <script type="module" src="https://js.arcgis.com/calcite-components/3.2.1/calcite.esm.js"></script>
+
+  <!-- Load the ArcGIS Maps SDK for JavaScript from CDN -->
+  <link rel="stylesheet" href="https://js.arcgis.com/4.33/esri/themes/light/main.css" />
+  <script src="https://js.arcgis.com/4.33/"></script>
+
+  <!-- Load Map components from CDN-->
+  <script type="module" src="https://js.arcgis.com/map-components/4.33/arcgis-map-components.esm.js"></script>
+
+</head>
+
+<body>
+  <calcite-shell>
+    <arcgis-map item-id="0bd951a1dd6a45ea8aeb44fffbf4c6bf">
+      <arcgis-expand position="top-left" group="top-left">
+        <arcgis-legend></arcgis-legend>
+      </arcgis-expand>
+      <arcgis-expand position="top-left" group="top-left">
+        <arcgis-layer-list></arcgis-layer-list>
+      </arcgis-expand>
+    </arcgis-map>
+    <calcite-shell-panel id="slider-panel" slot="panel-bottom" layout="horizontal">
+      <arcgis-time-slider layout="auto" mode="instant" reference-element="arcgis-map" disabled></arcgis-time-slider>
+    </calcite-shell-panel>
+  </calcite-shell>
+
+  <script type="module">
+    const reactiveUtils = await $arcgis.import("@arcgis/core/core/reactiveUtils.js");
+
+    const yearSlider = document.querySelector("arcgis-time-slider");
+    const arcgisMap = document.querySelector("arcgis-map");
+    const layerList = document.querySelector("arcgis-layer-list");
+
+    const totalProductionChangeTitle = "Production change";
+    const cottonProductionByTypeTitle = "Upland vs. Pima cotton";
+    const staticStylesTitle = "Static styles";
+
+    arcgisMap.addEventListener("arcgisViewReadyChange", async () => {
+      const map = arcgisMap.map;
+      const { fullTimeExtent, currentTimeExtent, stopInterval } = map?.widgets?.timeSlider;
+
+      yearSlider.fullTimeExtent = fullTimeExtent;
+      yearSlider.timeExtent = currentTimeExtent;
+      yearSlider.stops = {
+        interval: stopInterval
+      };
+
+      const staticStylesGroupLayer = map.allLayers.find(layer => layer.title === staticStylesTitle);
+      const totalProductionChangeLayer = map.allLayers.find(layer => layer.title === totalProductionChangeTitle);
+      const cottonProductionByTypeLayer = map.allLayers.find(layer => layer.title === cottonProductionByTypeTitle);
+
+      reactiveUtils.watch(
+        () => [staticStylesGroupLayer.visible, totalProductionChangeLayer.visible, cottonProductionByTypeLayer.visible],
+        (results) => {
+          const [staticStylesVisible, totalProductionChangeVisible, cottonProductionByTypeVisible] = results;
+
+          yearSlider.disabled = staticStylesVisible;
+          yearSlider.mode = cottonProductionByTypeVisible ? "instant" : "time-window";
+        });
+    });
+  </script>
+</body>
+
+</html>

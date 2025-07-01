@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Cotton Production Summary</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 2rem;
+      background: #f8f8f8;
+      color: #222;
+    }
+
+    h1 {
+      color: #2d6a4f;
+    }
+
+    section {
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px #0001;
+      max-width: 700px;
+      margin: auto;
+    }
+
+    ul {
+      margin-left: 1.5rem;
+    }
+
+    ol {
+      margin-left: 1.5rem;
+    }
+  </style>
+</head>
+
+<body>
+  <section>
+    <h1>Cotton Production: An Overview</h1>
+    <img src="gila-valley.png" alt="Cotton field"
+      style="width:100%;max-width:600px;display:block;margin:1rem auto 2rem auto;border-radius:6px;box-shadow:0 2px 8px #0002;">
+    <p>
+      Cotton is one of the world’s most important natural fibers, widely used in the textile industry. Its production
+      involves several stages, from planting and harvesting to ginning and processing.
+    </p>
+    <h2>Key Facts</h2>
+    <ul>
+      <li>The United States is one of the world’s largest cotton producers, primarily in states like Texas, Georgia, and
+        Mississippi.</li>
+      <li>U.S. cotton is mostly grown in the southern region known as the Cotton Belt.</li>
+      <li>Modern U.S. cotton farming uses advanced machinery for planting and harvesting.</li>
+      <li>After harvesting, cotton is ginned to separate fibers from seeds before being processed into textiles.</li>
+      <li>The U.S. exports a significant portion of its cotton crop to countries around the world.</li>
+    </ul>
+    <h3>Top Cotton Producing States</h3>
+    <ol>
+      <li>Texas</li>
+      <li>Georgia</li>
+      <li>Mississippi</li>
+      <li>Arkansas</li>
+      <li>California</li>
+      <li>Oklahoma</li>
+      <li>Alabama</li>
+    </ol>
+    <h2>Environmental Considerations</h2>
+    <ul>
+      <li>Cotton farming can be water-intensive and may involve the use of pesticides and fertilizers.</li>
+      <li>Sustainable cotton initiatives promote better farming practices to reduce environmental impact.</li>
+    </ul>
+    <p>
+      Cotton remains a vital crop for the global economy and textile industry, with ongoing efforts to improve its
+      sustainability.
+    </p>
+    <h2>Cotton production map</h2>
+    <!-- Add script to the <head> of your page to load the embeddable map component -->
+    <script type="module"
+      src="https://js.arcgis.com/embeddable-components/4.33/arcgis-embeddable-components.esm.js"></script>
+    <!-- Add custom element to <body> of your page -->
+    <arcgis-embedded-map style="height:600px;width:700px;" item-id="0bd951a1dd6a45ea8aeb44fffbf4c6bf" theme="light"
+      heading-enabled legend-enabled information-enabled center="-100.06702619649926,37.20317492208022"
+      scale="18489297.737236" portal-url="https://jsapi.maps.arcgis.com"></arcgis-embedded-map>
+  </section>
+
+</body>
+
+</html>
