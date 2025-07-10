@@ -54,16 +54,15 @@
         interval: stopInterval
       };
 
-      const staticStylesGroupLayer = map.allLayers.find(layer => layer.title === staticStylesTitle);
       const totalProductionChangeLayer = map.allLayers.find(layer => layer.title === totalProductionChangeTitle);
       const cottonProductionByTypeLayer = map.allLayers.find(layer => layer.title === cottonProductionByTypeTitle);
 
       reactiveUtils.watch(
-        () => [staticStylesGroupLayer.visible, totalProductionChangeLayer.visible, cottonProductionByTypeLayer.visible],
+        () => [totalProductionChangeLayer.visible, cottonProductionByTypeLayer.visible],
         (results) => {
-          const [staticStylesVisible, totalProductionChangeVisible, cottonProductionByTypeVisible] = results;
+          const [totalProductionChangeVisible, cottonProductionByTypeVisible] = results;
 
-          yearSlider.disabled = staticStylesVisible;
+          yearSlider.disabled = !cottonProductionByTypeVisible && !totalProductionChangeVisible;
           yearSlider.mode = cottonProductionByTypeVisible ? "instant" : "time-window";
         });
     });
